@@ -9,50 +9,42 @@ public class RandomNotes : MonoBehaviour
 
     [SerializeField] List<GameObject> notes;
 
+    int countNotes = 0;
 
     void Start()
     {
+        // Crear 5 notas y agregarlas a la lista
         for (int i = 0; i < 10; i++)
         {
-            GameObject newNote = Instantiate(note, initial_position.position, initial_position.rotation);
+            GameObject newNote = Instantiate(note, Vector3.zero, Quaternion.identity);
             newNote.name = "Proyectil" + i;
             newNote.tag = "Note";
-            newNote.SetActive(false);
+            newNote.SetActive(false); // Inicialmente desactivadas
             notes.Add(newNote);
         }
 
-        StartCoroutine(UpdateNotes());
+        StartCoroutine(SpawnNotes());
     }
 
-    void Update()
-    {
-    }
-
-    IEnumerator UpdateNotes()
-
+    IEnumerator SpawnNotes()
     {
         while (true)
         {
-            yield return new WaitForSeconds(1);
-            foreach (GameObject note in notes)
-            {
-                if (!note.activeInHierarchy)
-                {
-                    note.transform.position = Vector3RandomPosition();
-                    note.SetActive(true);
-                }
-            }
+            yield return new WaitForSeconds(0.5f);
+            notes[countNotes].transform.position = Vector3RandomPosition();
+            notes[countNotes].SetActive(true);
+            notes[countNotes].GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+            notes[countNotes].GetComponent<Rigidbody>().AddForce(Vector3.down * 10, ForceMode.Impulse);
 
-
+            // Avanzar al siguiente proyectil
+            countNotes++;
+            countNotes %= notes.Count; // Reiniciar el índice si llega al final
         }
-
-
     }
-
 
     Vector3 Vector3RandomPosition()
     {
         List<float> notesPosition = new List<float> { -6f, -2f, 2f, 6f };
-        return new Vector3(notesPosition[Random.Range(0, 4)], 6, 0);
+        return new Vector3(notesPosition[Random.Range(0, notesPosition.Count)], 8, 0);
     }
 }
