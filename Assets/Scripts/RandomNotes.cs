@@ -4,22 +4,27 @@ using UnityEngine;
 
 public class RandomNotes : MonoBehaviour
 {
-    [SerializeField] GameObject note;
-    [SerializeField] Transform initial_position;
+    GameObject note;
 
     [SerializeField] List<GameObject> notes;
 
     int countNotes = 0;
 
+    NotesController notesController;
+
+
     void Start()
     {
-        // Crear 5 notas y agregarlas a la lista
+        notesController = NotesController.Instance;
+
+        note = Resources.Load<GameObject>("Prefabs/NotePrefab");
+
         for (int i = 0; i < 10; i++)
         {
-            GameObject newNote = Instantiate(note, Vector3.zero, Quaternion.identity);
-            newNote.name = "Proyectil" + i;
+            GameObject newNote = Instantiate(note, new Vector3(0, 0, 0), new Quaternion(0, 0, 0, 0));
+            newNote.name = "Note" + i;
             newNote.tag = "Note";
-            newNote.SetActive(false); // Inicialmente desactivadas
+            newNote.SetActive(false);
             notes.Add(newNote);
         }
 
@@ -30,21 +35,18 @@ public class RandomNotes : MonoBehaviour
     {
         while (true)
         {
+
             yield return new WaitForSeconds(0.5f);
-            notes[countNotes].transform.position = Vector3RandomPosition();
+
+            notes[countNotes].transform.position = notesController.RandomPosition();
             notes[countNotes].SetActive(true);
             notes[countNotes].GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
             notes[countNotes].GetComponent<Rigidbody>().AddForce(Vector3.down * 10, ForceMode.Impulse);
 
-            // Avanzar al siguiente proyectil
             countNotes++;
-            countNotes %= notes.Count; // Reiniciar el índice si llega al final
+            countNotes %= notes.Count;
         }
     }
 
-    Vector3 Vector3RandomPosition()
-    {
-        List<float> notesPosition = new List<float> { -6f, -2f, 2f, 6f };
-        return new Vector3(notesPosition[Random.Range(0, notesPosition.Count)], 8, 0);
-    }
+
 }

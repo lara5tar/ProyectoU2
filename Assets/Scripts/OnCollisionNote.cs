@@ -1,20 +1,36 @@
-using System.Collections;
-using System.Collections.Generic;
+
+using TMPro;
 using UnityEngine;
 
 public class OnCollisionNote : MonoBehaviour
 {
-    void OnCollisionEnter(Collision collision)
-    {
-        Debug.Log("Colisión con " + collision.gameObject.name);
-        if (collision.gameObject.tag == "Player")
-        {
+    NotesController notesController;
+    TextMeshProUGUI textCounterPoints;
 
+    void Start()
+    {
+        notesController = NotesController.Instance;
+
+        textCounterPoints = GameObject.Find("CounterPoints").GetComponent<TextMeshProUGUI>();
+        textCounterPoints.text = notesController.GetPoints().ToString();
+    }
+
+    void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            notesController.AddPoint();
+            gameObject.SetActive(false);
         }
         else
         {
+            notesController.SubtractPoint();
         }
-        gameObject.SetActive(false);
 
+        textCounterPoints.text = notesController.GetPoints().ToString();
+
+        gameObject.SetActive(false);
     }
+
+
 }
