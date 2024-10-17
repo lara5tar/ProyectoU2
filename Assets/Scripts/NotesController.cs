@@ -10,6 +10,8 @@ public class NotesController : MonoBehaviour
 
     int CounterPoints = 0;
 
+    bool isGameInPlay = true;
+
     public static NotesController Instance { get; private set; }
     void Awake()
     {
@@ -24,10 +26,10 @@ public class NotesController : MonoBehaviour
     }
     void Start()
     {
-        notes.Add(new Dictionary<string, object> { { "note", KeyCode.A }, { "position", -6f } });
-        notes.Add(new Dictionary<string, object> { { "note", KeyCode.S }, { "position", -2f } });
-        notes.Add(new Dictionary<string, object> { { "note", KeyCode.K }, { "position", 2f } });
-        notes.Add(new Dictionary<string, object> { { "note", KeyCode.L }, { "position", 6f } });
+        notes.Add(new Dictionary<string, object> { { "note", KeyCode.D }, { "position", -6f } });
+        notes.Add(new Dictionary<string, object> { { "note", KeyCode.F }, { "position", -2f } });
+        notes.Add(new Dictionary<string, object> { { "note", KeyCode.J }, { "position", 2f } });
+        notes.Add(new Dictionary<string, object> { { "note", KeyCode.K }, { "position", 6f } });
     }
 
 
@@ -74,6 +76,16 @@ public class NotesController : MonoBehaviour
     public int GetPoints()
     {
         return CounterPoints;
+    }
+
+    public void SetGameInPlay(bool value)
+    {
+        isGameInPlay = value;
+    }
+
+    public bool GetIsGameInPlay()
+    {
+        return isGameInPlay;
     }
 
 }

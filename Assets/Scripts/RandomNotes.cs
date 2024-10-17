@@ -33,7 +33,7 @@ public class RandomNotes : MonoBehaviour
 
     IEnumerator SpawnNotes()
     {
-        while (true)
+        while (notesController.GetIsGameInPlay())
         {
 
             yield return new WaitForSeconds(0.5f);

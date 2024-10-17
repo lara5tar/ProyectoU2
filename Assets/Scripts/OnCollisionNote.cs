@@ -17,6 +17,7 @@ public class OnCollisionNote : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
+
         if (other.gameObject.tag == "Player")
         {
             notesController.AddPoint();
