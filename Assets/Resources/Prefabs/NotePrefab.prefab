@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2360794814373380059}
   - component: {fileID: 4078536735146987552}
   - component: {fileID: 1675859714004055669}
-  - component: {fileID: -5640886702340497215}
+  - component: {fileID: 6695777925016994428}
   m_Layer: 0
   m_Name: NotePrefab
   m_TagString: Note
@@ -134,7 +134,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!114 &-5640886702340497215
+--- !u!114 &6695777925016994428
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
