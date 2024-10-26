@@ -16,6 +16,7 @@ public class OnCollisionNote : MonoBehaviour
         notesController = NotesController.Instance;
         punto = GameObject.Find("Point").GetComponent<AudioSource>();
         fail = GameObject.Find("Fail").GetComponent<AudioSource>();
+        
         //textCounterPoints = GameObject.Find("CounterPoints").GetComponent<TextMeshProUGUI>();
         // textCounterPoints.text = notesController.GetPoints().ToString();
     }
@@ -23,9 +24,10 @@ public class OnCollisionNote : MonoBehaviour
     void OnCollisionEnter(Collision other)
     {
         Debug.Log("colision detectada");
-        if (other.gameObject.CompareTag("Player")) //no detecta el punto
+        if (other.gameObject.CompareTag("Jugador")) //no detecta el punto
         {
             Debug.Log("Puntote");
+            //punto.Play();
             punto.PlayOneShot(punto.clip);
             notesController.AddPoint();
             gameObject.SetActive(false);
